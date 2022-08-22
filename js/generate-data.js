@@ -43,7 +43,7 @@ const createCommentsArray = (minLength, maxLength) => {
   for (let index = 0; index < getRandomNum(minLength, maxLength); index++) {
     comments.push({
       id: getRandomNum(0, 200),
-      avatar: `img/avatar-${getRandomNum(1, 6)}.svg}`,
+      avatar: `./img/avatar-${getRandomNum(1, 6)}.svg`,
       message: getRandomElement(MESSAGES),
       name: getRandomElement(NAMES),
     });

@@ -27,4 +27,8 @@ const isLengthLimit = (string, maxLength) => {
 
 const getRandomElement = (elements) => elements[getRandomNum(0, elements.length - 1)];
 
-export { getRandomNum, isLengthLimit, getRandomElement };
+const isEcsEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+}
+
+export { getRandomNum, isLengthLimit, getRandomElement, isEcsEvent };
