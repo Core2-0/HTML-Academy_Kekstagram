@@ -1,1 +1,1 @@
-import './generate-data.js';
+import './render-photo.js';

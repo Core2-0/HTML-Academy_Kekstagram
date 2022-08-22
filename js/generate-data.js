@@ -58,7 +58,7 @@ const generatePhotoCards = () => {
   for (let i = 0; i < PHOTO_COUNT; i += 1) {
     photos.push({
       id: i,
-      url: `photos/${i + 1}.jpg}`,
+      url: `./photos/${i + 1}.jpg`,
       description: getRandomElement(DESCRIPTIONS),
       likes: getRandomNum(Likes.MIN, Likes.MAX),
       comments: createCommentsArray(CommentCount.MIN, CommentCount.MAX),
@@ -68,4 +68,4 @@ const generatePhotoCards = () => {
   return photos;
 }
 
-generatePhotoCards();
+export { generatePhotoCards };
