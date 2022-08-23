@@ -1,5 +1,5 @@
 import { generatePhotoCards } from './generate-data.js';
-import { showBigPhoto } from './show-big-photo.js';
+import { showBigPhoto, onCloseEsc } from './show-big-photo.js';
 
 const similarPictureContainer = document.querySelector('.pictures');
 const similarPhotoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -18,6 +18,8 @@ renderPhotoCards.forEach((photoCard) => {
 
   similarPhotoCard.addEventListener('click', () => {
     showBigPhoto(photoCard);
+
+    document.addEventListener('keydown', onCloseEsc);
   });
 });
 

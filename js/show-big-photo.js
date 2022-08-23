@@ -9,8 +9,8 @@ const commentListFragment = document.createDocumentFragment();
 const commentTemplate = commentList.querySelector('.social__comment');
 
 const getComments = (comments) => {
-  commentList.innerHTML = '';
-  
+  clearCommentList();
+
   comments.forEach(comment => {
     const commentMessage = commentTemplate.cloneNode(true);
 
@@ -35,22 +35,33 @@ const showBigPhoto = (photoCard) => {
   bigPhoto.querySelector('.comments-loader').classList.add('hidden');
 
   bigPhoto.classList.remove('hidden');
-  closeBigPhoto();
+  onCloseBigPhoto();
+};
+
+const clearCommentList = () => {
+  commentList.innerHTML = '';
+}
+
+const onCloseEsc = (evt) => {
+  if (isEcsEvent(evt)) {
+    evt.preventDefault();
+    closeBigPhoto();
+    clearCommentList();
+  }
 };
 
 const closeBigPhoto = () => {
-  document.addEventListener('keydown', (evt) => {
-    if (isEcsEvent(evt)) {
-      evt.preventDefault();
-      bigPhoto.classList.add('hidden');
-      body.classList.remove('modal-open');
-    }
-  });
+  bigPhoto.classList.add('hidden');
+  body.classList.remove('modal-open');
 
+  document.removeEventListener('keydown', onCloseEsc);
+};
+
+const onCloseBigPhoto = () => {
   closeButton.addEventListener('click', () => {
-    bigPhoto.classList.add('hidden');
-    body.classList.remove('modal-open');
+    closeBigPhoto();
+    clearCommentList();
   });
 };
 
-export { showBigPhoto };
+export { showBigPhoto, onCloseEsc };
