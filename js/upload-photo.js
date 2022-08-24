@@ -1,14 +1,19 @@
 import { setImageScale, imgUploadPreview, scaleControlValue } from './scale-photo.js';
 import { setFilter } from './effects.js';
-import { isEcsEvent } from './utils/utils.js';
+import { isEcsEvent, onStopEsc } from './utils/utils.js';
+import { validationHashtags } from './validation.js';
 
-const imgUpLoad = document.querySelector('#upload-file');
-const imgUpLoadForm = document.querySelector('.img-upload__overlay');
-const buttonCancel = imgUpLoadForm.querySelector('#upload-cancel');
+const imgUpLoadInput = document.querySelector('#upload-file');
+const imgUpLoadOverlay = document.querySelector('.img-upload__overlay');
+const buttonCancel = imgUpLoadOverlay.querySelector('#upload-cancel');
 
-imgUpLoad.addEventListener('change', () => {
+const upLoadForm = document.querySelector('.img-upload__form')
+const hashtagInput = upLoadForm.querySelector('.text__hashtags');
+const descriptionInput = upLoadForm.querySelector('.text__description');
+
+imgUpLoadInput.addEventListener('change', () => {
   resetSettigns();
-  imgUpLoadForm.classList.remove('hidden');
+  imgUpLoadOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   setFilter();
 
@@ -25,9 +30,9 @@ const resetSettigns = () => {
 };
 
 const closeUpLoad = () => {
-  imgUpLoadForm.classList.add('hidden');
+  imgUpLoadOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  imgUpLoad.value = '';
+  imgUpLoadInput.value = '';
 
   document.removeEventListener('keydown', onCloseUpLoadEsc);
 };
@@ -42,3 +47,7 @@ const onCloseUpLoadEsc = (evt) => {
 buttonCancel.addEventListener('click', () => {
   closeUpLoad();
 });
+
+validationHashtags(upLoadForm, hashtagInput);
+
+onStopEsc(hashtagInput, descriptionInput);
