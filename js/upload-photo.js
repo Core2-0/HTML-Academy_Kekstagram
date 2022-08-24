@@ -1,10 +1,13 @@
 import { setImageScale, imgUploadPreview, scaleControlValue } from './scale-photo.js';
 import { setFilter } from './effects.js';
 import { isEcsEvent } from './utils/utils.js';
+import { hashtagValidation } from './validation.js';
 
 const imgUpLoadInput = document.querySelector('#upload-file');
 const imgUpLoadOverlay = document.querySelector('.img-upload__overlay');
 const buttonCancel = imgUpLoadOverlay.querySelector('#upload-cancel');
+
+const hashtagInput = imgUpLoadOverlay.querySelector('.text__hashtags');
 
 imgUpLoadInput.addEventListener('change', () => {
   resetSettigns();
@@ -42,3 +45,7 @@ const onCloseUpLoadEsc = (evt) => {
 buttonCancel.addEventListener('click', () => {
   closeUpLoad();
 });
+
+hashtagInput.addEventListener('input', () => {
+  hashtagValidation(hashtagInput);
+})
