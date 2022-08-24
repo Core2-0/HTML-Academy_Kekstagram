@@ -1,2 +1,2 @@
 import './render-photo.js';
-import './settings-upload-photo.js';
+import './upload-photo.js';
