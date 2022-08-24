@@ -1,3 +1,4 @@
+/* global noUiSlider:readonly */
 import '../nouislider/nouislider.js';
 
 const imgUpload = document.querySelector('.img-upload__overlay').classList.remove('hidden');
@@ -14,7 +15,8 @@ const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const imgUploadPreview = document.querySelector('.img-upload__preview > img');
 
-const sliderElement = document.querySelector('.effect-level__slider');
+const sliderField = document.querySelector('.effect-level')
+const sliderElement = sliderField.querySelector('.effect-level__slider');
 
 const filterChange = document.querySelectorAll('.effects__radio');
 
@@ -58,35 +60,21 @@ noUiSlider.create(sliderElement, {
 })
 
 // FILTER
+const setFilter = () => {
+  sliderField.classList.add('hidden');
 
-for (let i = 0; i < filterChange.length; i++) {
-
-  filterChange[i].addEventListener('change', () => {
-    switch (filterChange[i].id) {
-      case 'effect-chrome':
+  for (let i = 0; i < filterChange.length; i++) {
+    filterChange[i].addEventListener('click', () => {
+      if (filterChange[i].value !== 'none') {
+        sliderField.classList.remove('hidden');
         imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add('effects__preview--chrome');
-        break;
-      case 'effect-sepia':
+        imgUploadPreview.classList.add(`effects__preview--${filterChange[i].value}`);
+      } else {
+        sliderField.classList.add('hidden');
         imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add('effects__preview--sepia');
-        break;
-      case 'effect-marvin':
-        imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add('effects__preview--marvin');
-        break;
-      case 'effect-phobos':
-        imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add('effects__preview--phobos');
-        break;
-      case 'effect-heat':
-        imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add('effects__preview--heat');
-        break;
-      default:
-        imgUploadPreview.removeAttribute('class');
-        break;
-    }
-  })
-
+      }
+    })
+  }
 }
+
+setFilter();
