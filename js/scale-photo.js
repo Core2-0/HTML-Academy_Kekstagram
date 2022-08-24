@@ -9,26 +9,31 @@ const ScaleValues = {
   STEP: 25,
 };
 
-const defaultScale = () => {
-  scaleControlValue.value = `${ScaleValues.MAX}%`;
-  imgUploadPreview.style.scale = scaleControlValue.value / 100;
-}
 
-defaultScale();
+// imgUploadPreview.style.scale = scaleControlValue.value / 100;
+
 
 const setImageScale = () => {
-  scaleControlSmaller.addEventListener('click', () => {
-    if (parseInt(scaleControlValue.value) > ScaleValues.MIN) {
-      scaleControlValue.value = `${parseInt(scaleControlValue.value) - ScaleValues.STEP}%`;
-      imgUploadPreview.style.scale = parseInt(scaleControlValue.value) / 100;
-    }
+  scaleControlValue.value = `${ScaleValues.MAX}%`;
+  
+  scaleControlBigger.addEventListener('click', () => {
+    let scale = parseInt(scaleControlValue.value, 10) + ScaleValues.STEP;
+
+    if (scale >= ScaleValues.MAX) scale = ScaleValues.MAX;
+
+    scaleControlValue.value = `${scale}%`;
+    scale = scale / 100;
+    imgUploadPreview.style.transform = `scale(${scale})`;
   });
 
-  scaleControlBigger.addEventListener('click', () => {
-    if (parseInt(scaleControlValue.value) < ScaleValues.MAX) {
-      scaleControlValue.value = `${parseInt(scaleControlValue.value) + ScaleValues.STEP}%`;
-      imgUploadPreview.style.scale = parseInt(scaleControlValue.value) / 100;
-    }
+  scaleControlSmaller.addEventListener('click', () => {
+    let scale = parseInt(scaleControlValue.value, 10) - ScaleValues.STEP;
+
+    if (scale <= ScaleValues.MIN) scale = ScaleValues.MIN;
+
+    scaleControlValue.value = `${scale}%`;
+    scale = scale / 100;
+    imgUploadPreview.style.transform = `scale(${scale})`;
   });
 };
 
