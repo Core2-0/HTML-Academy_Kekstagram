@@ -31,4 +31,14 @@ const isEcsEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 }
 
-export { getRandomNum, isLengthLimit, getRandomElement, isEcsEvent };
+const onStopEsc = (...args) => {
+  return args.map((arg) => {
+    return arg.addEventListener('keydown', (evt) => {
+      if (isEcsEvent) {
+        evt.stopPropagation();
+      }
+    });
+  })
+};
+
+export { getRandomNum, isLengthLimit, getRandomElement, isEcsEvent, onStopEsc };
