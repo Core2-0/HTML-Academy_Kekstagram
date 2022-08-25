@@ -1,26 +1,28 @@
-import { generatePhotoCards } from './generate-data.js';
 import { showBigPhoto, onCloseEsc } from './show-big-photo.js';
 
 const similarPictureContainer = document.querySelector('.pictures');
-const similarPhotoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const photoCardTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const renderPhotoCards = generatePhotoCards();
 const photoCardFragment = document.createDocumentFragment();
 
-renderPhotoCards.forEach((photoCard) => {
-  const similarPhotoCard = similarPhotoCardTemplate.cloneNode(true);
+const renderPhotos = (photos) => {
+  photos.forEach((photo) => {
+    const photoCard = photoCardTemplate.cloneNode(true);
 
-  similarPhotoCard.querySelector('.picture__img').src = photoCard.url;
-  similarPhotoCard.querySelector('.picture__likes').textContent = photoCard.likes;
-  similarPhotoCard.querySelector('.picture__comments').textContent = photoCard.comments.length;
+    photoCard.querySelector('.picture__img').src = photo.url;
+    photoCard.querySelector('.picture__likes').textContent = photo.likes;
+    photoCard.querySelector('.picture__comments').textContent = photo.comments.length;
 
-  photoCardFragment.appendChild(similarPhotoCard);
+    photoCardFragment.appendChild(photoCard);
 
-  similarPhotoCard.addEventListener('click', () => {
-    showBigPhoto(photoCard);
+    photoCard.addEventListener('click', () => {
+      showBigPhoto(photo);
 
-    document.addEventListener('keydown', onCloseEsc);
+      document.addEventListener('keydown', onCloseEsc);
+    });
   });
-});
 
-similarPictureContainer.appendChild(photoCardFragment);
+  similarPictureContainer.appendChild(photoCardFragment);
+};
+
+export { renderPhotos };
