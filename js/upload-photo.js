@@ -1,4 +1,4 @@
-import { setImageScale, imgUploadPreview } from './scale-photo.js';
+import { setImageScale, imgUploadPreview, scaleControlValue } from './scale-photo.js';
 import { setFilter } from './effects.js';
 
 const imgUpLoad = document.querySelector('#upload-file');
@@ -9,15 +9,16 @@ imgUpLoad.addEventListener('change', () => {
   resetSettigns();
   imgUpLoadForm.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-
-  setImageScale();
   setFilter();
 })
+
+setImageScale();
 
 const resetSettigns = () => {
   imgUploadPreview.removeAttribute('class');
   imgUploadPreview.style.filter = '';
   imgUploadPreview.style.transform = 'scale(1)';
+  scaleControlValue.value = `${100}%`;
 }
 
 buttonCancel.addEventListener('click', () => {
