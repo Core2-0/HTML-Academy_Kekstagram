@@ -5,6 +5,7 @@ const HashTagRules = {
   MIN_SYMBOLS: 2,
   MAX_SYMBOLS: 20,
   MAX_HASHTAGS: 5,
+  PATTERN: /#[А-Яа-яЁё\sa-zA-Z\s]/,
 };
 
 const setErrorValidStyle = (element) => {
@@ -19,6 +20,10 @@ const checkActions = [
   {
     message: false,
     check: (arg) => arg.length === 0,
+  },
+  {
+    message: 'Хэш-тэг должен начинатся с # и содержать только буквы',
+    check: (arg) => arg.some((value) => !HashTagRules.PATTERN.test(value)),
   },
   {
     message: `Хэш-тэгов должно быть не более ${HashTagRules.MAX_HASHTAGS}`,
@@ -68,19 +73,17 @@ const clearCustomValidity = (...fields) => {
   });
 }
 
-const validation = (form, fields) => {
-  clearCustomValidity(fields);
+const validationHashtags = (form, hashtagsField) => {
+  clearCustomValidity(hashtagsField);
 
   form.addEventListener('invalid', (evt) => {
     setErrorValidStyle(evt.target);
-    fields.pattern !=='' ? fields.setCustomValidity('Хэш-тэг должен начинатся с # и содержать только буквы!') : null;
   }, true);
 
   form.addEventListener('input', (evt) => {
     resetErrorValidStyle(evt.target);
-
-    checkHashTag(fields.value, fields);
+    checkHashTag(hashtagsField.value, hashtagsField);
   });
 };
 
-export { validation };
+export { validationHashtags };

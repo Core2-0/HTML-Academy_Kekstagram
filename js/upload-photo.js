@@ -1,7 +1,7 @@
 import { setImageScale, imgUploadPreview, scaleControlValue } from './scale-photo.js';
 import { setFilter } from './effects.js';
 import { isEcsEvent, onStopEsc } from './utils/utils.js';
-import { validation } from './validation.js';
+import { validationHashtags } from './validation.js';
 
 const imgUpLoadInput = document.querySelector('#upload-file');
 const imgUpLoadOverlay = document.querySelector('.img-upload__overlay');
@@ -48,6 +48,6 @@ buttonCancel.addEventListener('click', () => {
   closeUpLoad();
 });
 
-validation(upLoadForm, hashtagInput);
+validationHashtags(upLoadForm, hashtagInput);
 
 onStopEsc(hashtagInput, descriptionInput);
