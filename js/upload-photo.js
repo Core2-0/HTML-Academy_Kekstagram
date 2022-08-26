@@ -2,6 +2,8 @@ import { setImageScale, imgUploadPreview, scaleControlValue } from './scale-phot
 import { setFilter } from './effects.js';
 import { isEcsEvent, onStopEsc } from './utils/utils.js';
 import { validationHashtags } from './validation.js';
+import { createFormMessage, showFormMessage } from './utils/error-utils.js';
+import { sendData } from './server.js';
 
 const imgUpLoadInput = document.querySelector('#upload-file');
 const imgUpLoadOverlay = document.querySelector('.img-upload__overlay');
@@ -27,12 +29,15 @@ const resetSettigns = () => {
   imgUploadPreview.style.filter = '';
   imgUploadPreview.style.transform = 'scale(1)';
   scaleControlValue.value = `${100}%`;
+  hashtagInput.value = '';
+  descriptionInput.value = '';
 };
 
 const closeUpLoad = () => {
   imgUpLoadOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
   imgUpLoadInput.value = '';
+  resetSettigns();
 
   document.removeEventListener('keydown', onCloseUpLoadEsc);
 };
@@ -51,3 +56,27 @@ buttonCancel.addEventListener('click', () => {
 validationHashtags(upLoadForm, hashtagInput);
 
 onStopEsc(hashtagInput, descriptionInput);
+
+const setFormSubmit = (onSuccess, onFail) => {
+  upLoadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    sendData(() => onSuccess(), () => onFail(), formData);
+  });
+};
+
+const setSuccessForm = () => {
+  showFormMessage(createFormMessage('success', 'success'));
+  imgUpLoadInput.value = '';
+  closeUpLoad();
+  resetSettigns();
+}
+
+const setErrorForm = () => {
+  showFormMessage(createFormMessage('error', 'error'));
+  imgUpLoadInput.value = '';
+  closeUpLoad();
+  resetSettigns();
+}
+
+setFormSubmit(setSuccessForm, setErrorForm);

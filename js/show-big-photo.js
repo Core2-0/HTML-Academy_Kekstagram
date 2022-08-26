@@ -1,5 +1,4 @@
 import { isEcsEvent } from './utils/utils.js';
-import './generate-data.js';
 
 const body = document.querySelector('body');
 const bigPhoto = document.querySelector('.big-picture');
