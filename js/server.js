@@ -1,4 +1,5 @@
 import { renderPhotos } from './render-photo.js';
+import { setActiveFilter, filterChange } from './filter.js';
 import { createErrorMessage, showErrorMessage } from './utils/error-utils.js';
 
 const GET_DATA = 'https://23.javascript.pages.academy/kekstagram/data';
@@ -14,7 +15,7 @@ const getData = (onSucces, onFail) => {
         onFail();
       }
     })
-    .then((photos) => onSucces(photos))
+    .then((photos) => onSucces(photos.slice()))
     .catch(() => onFail());
 };
 
@@ -34,6 +35,8 @@ const sendData = (onSucces, onFail, body) => {
 
 getData((photos) => {
   renderPhotos(photos);
+  setActiveFilter();
+  filterChange(photos);
 }, () => showErrorMessage(createErrorMessage));
 
 export { sendData };

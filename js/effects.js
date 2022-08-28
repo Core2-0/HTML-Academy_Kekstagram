@@ -5,7 +5,7 @@ import { imgUploadPreview } from './scale-photo.js';
 const sliderField = document.querySelector('.effect-level')
 const sliderElement = sliderField.querySelector('.effect-level__slider');
 const sliderValue = sliderField.querySelector('.effect-level__value');
-const filterChange = document.querySelectorAll('.effects__radio');
+const effectChange = document.querySelectorAll('.effects__radio');
 
 const effects = [
   {
@@ -69,12 +69,12 @@ noUiSlider.create(sliderElement, {
 const setFilter = () => {
   sliderField.classList.add('hidden');
 
-  for (let i = 0; i < filterChange.length; i++) {
-    filterChange[i].addEventListener('change', () => {
-      if (filterChange[i].value !== 'none') {
+  for (let i = 0; i < effectChange.length; i++) {
+    effectChange[i].addEventListener('change', () => {
+      if (effectChange[i].value !== 'none') {
         sliderField.classList.remove('hidden');
         imgUploadPreview.removeAttribute('class');
-        imgUploadPreview.classList.add(`effects__preview--${filterChange[i].value}`);
+        imgUploadPreview.classList.add(`effects__preview--${effectChange[i].value}`);
 
         sliderElement.noUiSlider.on('update', (values, handle) => {
           sliderValue.value = values[handle];

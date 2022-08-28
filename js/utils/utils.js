@@ -29,6 +29,23 @@ const getRandomElement = (elements) => elements[getRandomNum(0, elements.length 
 
 const isEcsEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+const shuffleArray = (arr) => {
+  let j, temp;
+
+  for (let i = 0; i < arr.length; i++) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = arr[j];
+    arr[j] = arr[i];
+    arr[i] = temp;
+  }
+
+  return arr;
+};
+
+const sortDownComments = (arr) => {
+  return arr.sort((a, b) => b.comments.length - a.comments.length);
 }
 
 const onStopEsc = (...args) => {
@@ -41,4 +58,4 @@ const onStopEsc = (...args) => {
   })
 };
 
-export { getRandomNum, isLengthLimit, getRandomElement, isEcsEvent, onStopEsc };
+export { getRandomNum, isLengthLimit, getRandomElement, shuffleArray, sortDownComments, isEcsEvent, onStopEsc };
