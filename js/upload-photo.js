@@ -4,6 +4,7 @@ import { isEcsEvent, onStopEsc } from './utils/utils.js';
 import { validationHashtags } from './validation.js';
 import { createFormMessage, showFormMessage } from './utils/error-utils.js';
 import { sendData } from './server.js';
+import { loadPhoto } from './image-preview.js';
 
 const imgUpLoadInput = document.querySelector('#upload-file');
 const imgUpLoadOverlay = document.querySelector('.img-upload__overlay');
@@ -12,6 +13,10 @@ const buttonCancel = imgUpLoadOverlay.querySelector('#upload-cancel');
 const upLoadForm = document.querySelector('.img-upload__form')
 const hashtagInput = upLoadForm.querySelector('.text__hashtags');
 const descriptionInput = upLoadForm.querySelector('.text__description');
+
+const uploadFile = upLoadForm.querySelector('#upload-file');
+const photoPreveiw = upLoadForm.querySelector('.img-upload__preview img');
+const effectsPreview = upLoadForm.querySelectorAll('.effects__preview');
 
 imgUpLoadInput.addEventListener('change', () => {
   resetSettigns();
@@ -80,3 +85,5 @@ const setErrorForm = () => {
 }
 
 setFormSubmit(setSuccessForm, setErrorForm);
+
+uploadFile.addEventListener('change', () => loadPhoto(uploadFile, photoPreveiw, effectsPreview));
