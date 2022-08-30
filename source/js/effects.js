@@ -1,5 +1,5 @@
 /* global noUiSlider:readonly */
-import '../nouislider/nouislider.js';
+import './../../build/nouislider/nouislider.js';
 import { imgUploadPreview } from './scale-photo.js';
 
 const sliderField = document.querySelector('.effect-level')
